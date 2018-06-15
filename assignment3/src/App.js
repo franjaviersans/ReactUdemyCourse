@@ -11,6 +11,21 @@ class App extends Component {
       fontWeight: 'bold',
       color: 'red'
     };
+
+    let links = {
+      listStyle: 'none',
+      margin: 'auto',
+      padding: '0',
+      position: 'relative',
+      width: '100%',
+      textAlign: 'center',
+    };
+
+    let styleLI = {
+      margin: '10px',
+      display: 'inline-block',
+    }
+
     return (
       <div className="App">
         <ol style={{textAlign: 'left'}}>
@@ -28,19 +43,19 @@ class App extends Component {
         
         <header>
           <nav>
-            <ul>
-              <li><NavLink  to="/courses" activeStyle={activeStyle}>Courses</NavLink></li>
-              <li><NavLink  to="/users" activeStyle={activeStyle}>Users</NavLink> </li>
+            <ul style={links}>
+              <li style={styleLI}><NavLink  to="/courses" activeStyle={activeStyle}>Courses</NavLink></li>
+              <li style={styleLI}><NavLink  to="/users" activeStyle={activeStyle}>Users</NavLink> </li>
             </ul>
           </nav>
         </header>
 
         <Switch>
-          <Route path='/courses/:id' component={Courses}/>
           <Route path='/courses' component={Courses}/>
           <Route path='/users' component={Users}/>
           <Route path='/all-courses' render={()=> <Redirect to='/courses'/>}/>
-          <Route path='*' exact render={() => (<p>Incorrect Page</p>)} />
+          <Route path='/' render={()=> <Redirect to='/courses'/>}/>
+          <Route render={() => (<p>Incorrect Page</p>)} />
         </Switch>
       </div>
     );

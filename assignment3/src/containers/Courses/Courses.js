@@ -17,7 +17,7 @@ class Courses extends Component {
     handleRoute = (id, title) => {
         this.props.history.push(
             {
-              pathname: '/courses/'+id,
+              pathname: this.props.match.url+'/'+id,
               search: '?title='+title
             }
         );
@@ -42,8 +42,8 @@ class Courses extends Component {
                 </section>
                 <Route 
                     exact
-                    path='/courses/:id' 
-                    render={() => <Course className='Course' {...this.props}/> }
+                    path={this.props.match.url+'/:id'}
+                    component={Course}
                 />
             </div>
         );
