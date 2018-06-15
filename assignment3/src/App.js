@@ -3,10 +3,14 @@ import React, { Component } from 'react';
 import Courses from './containers/Courses/Courses';
 import Users from './containers/Users/Users';
 
-import { Route, Link, Switch }  from 'react-router-dom';
+import { Route, NavLink, Switch, Redirect }  from 'react-router-dom';
 
 class App extends Component {
   render () {
+    let activeStyle = {
+      fontWeight: 'bold',
+      color: 'red'
+    };
     return (
       <div className="App">
         <ol style={{textAlign: 'left'}}>
@@ -25,8 +29,8 @@ class App extends Component {
         <header>
           <nav>
             <ul>
-              <li><Link to="/courses">Courses</Link></li>
-              <li><Link to="/users">Users</Link> </li>
+              <li><NavLink  to="/courses" activeStyle={activeStyle}>Courses</NavLink></li>
+              <li><NavLink  to="/users" activeStyle={activeStyle}>Users</NavLink> </li>
             </ul>
           </nav>
         </header>
@@ -35,6 +39,8 @@ class App extends Component {
           <Route path='/courses/:id' component={Courses}/>
           <Route path='/courses' component={Courses}/>
           <Route path='/users' component={Users}/>
+          <Route path='/all-courses' render={()=> <Redirect to='/courses'/>}/>
+          <Route path='*' exact render={() => (<p>Incorrect Page</p>)} />
         </Switch>
       </div>
     );
