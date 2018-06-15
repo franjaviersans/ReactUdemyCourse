@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 
 import Courses from './containers/Courses/Courses';
-import Course from './containers/Course/Course';
 import Users from './containers/Users/Users';
 
-import { Route, Link }  from 'react-router-dom';
+import { Route, Link, Switch }  from 'react-router-dom';
 
 class App extends Component {
   render () {
@@ -32,9 +31,11 @@ class App extends Component {
           </nav>
         </header>
 
-        <Route path='/courses' exact component={Courses}/>
-        <Route path='/courses/:id' component={Course}/>
-        <Route path='/users' component={Users}/>
+        <Switch>
+          <Route path='/courses/:id' component={Courses}/>
+          <Route path='/courses' component={Courses}/>
+          <Route path='/users' component={Users}/>
+        </Switch>
       </div>
     );
   }

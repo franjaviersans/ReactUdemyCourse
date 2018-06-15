@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 
 import './Courses.css';
 import { withRouter } from 'react-router-dom';
-
+import { Route }  from 'react-router-dom';
+import Course from '../Course/Course'
 
 class Courses extends Component {
     state = {
@@ -13,12 +14,11 @@ class Courses extends Component {
         ]
     }
 
-    handleRoute = (id) => {
-        console.log(id);
+    handleRoute = (id, title) => {
         this.props.history.push(
             {
-              pathname: "/courses/"+id,
-              state: { some: 'state' }
+              pathname: '/courses/'+id,
+              search: '?title='+title
             }
         );
 
@@ -34,12 +34,17 @@ class Courses extends Component {
                             return <article 
                                 className="Course" 
                                 key={course.id}
-                                onClick={() => this.handleRoute(course.id)}>
+                                onClick={() => this.handleRoute(course.id, course.title)}>
                                 {course.title} 
                                 </article>;
                         } )
                     }
                 </section>
+                <Route 
+                    exact
+                    path='/courses/:id' 
+                    render={() => <Course className='Course' {...this.props}/> }
+                />
             </div>
         );
     }
