@@ -8,4 +8,12 @@ This repository stores my assigments for a Udemy course to reinforce my knowledg
 
 ## Assignment 2
 
-- Using lits to create dynamic elements with React.
+- Using lists to create dynamic elements with React.
+
+## Assignment 3
+
+- Manipulating routes in react to create a multi-page application.
+
+## Assignment 4
+
+- First steps to use redux.
