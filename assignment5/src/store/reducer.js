@@ -10,8 +10,8 @@ const reducer = (state = initialState, action) => {
 			//new person
 			const newPerson = {
         	    id: Math.random(), // not really unique but good enough here!
-    	        name: 'Max',
-	            age: Math.floor( Math.random() * 40 )
+    	        name: action.payload.name,
+	            age: action.payload.age
         	}
 
         	//craete copy
@@ -37,8 +37,9 @@ const reducer = (state = initialState, action) => {
 				persons: newPersons,
 			};
 		}
+		default:
+			return state;
 	}
-	return state;
 };
 
 
