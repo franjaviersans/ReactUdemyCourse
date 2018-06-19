@@ -17,3 +17,7 @@ This repository stores my assigments for a Udemy course to reinforce my knowledg
 ## Assignment 4
 
 - First steps to use redux.
+
+## Assignment 5
+
+- Adding Redux to a project.
