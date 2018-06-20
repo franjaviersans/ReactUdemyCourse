@@ -37,7 +37,6 @@ const reducer = (state = initialState, action) =>{
 			};
 
 		case(actionTypes.REMOVE_INGREDIENT):
-		console.log('what');
 			return {
 				...state,
 				ingredients: {
