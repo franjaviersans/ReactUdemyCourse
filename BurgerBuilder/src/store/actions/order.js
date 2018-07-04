@@ -56,7 +56,7 @@ export const purchaseInit = () => {
 
 export const fetchOrdersSuccess = (orders) => {
 	return {
-		type: actionTypes.FETCH_ORDERS_SUCCES,
+		type: actionTypes.FETCH_ORDERS_SUCCESS,
 		orders: orders,
 	};
 }
