@@ -1,9 +1,11 @@
 
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/Button';
 import classes from './Auth.css';
+import * as actions from '../../store/actions/index';
 
 class Auth extends Component{
 
@@ -40,7 +42,8 @@ class Auth extends Component{
 				touched: false,
 				errorMessage: 'Please enter a non-empty name',
 			},
-		}
+		},
+		isSignUp:true,
 	}
 
 
@@ -94,6 +97,16 @@ class Auth extends Component{
 		
 	}
 
+	submitHandler = (event) => {
+		event.preventDefault();
+		this.props.onAuth(this.state.controls.email.value, this.state.controls.password.value, this.state.isSignUp);
+	}
+
+	siwthAuthModeHandler = () =>{
+		this.setState ( prevState => {
+			return {isSignUp: !prevState.isSignUp}
+		})
+	}
 
 	render(){
 
@@ -122,17 +135,28 @@ class Auth extends Component{
 
 		return (
 			<div className={classes.Auth}>
-				<form>
+				<form onSubmit={this.submitHandler}>
 					{form}
 					<Button btnType="Success">
-					SUBMIT
+						SUBMIT
 					</Button>
 				</form>
+				<Button 
+					clicked={this.siwthAuthModeHandler}
+					btnType="Danger">
+					SWITCH TO {this.state.isSignUp?"SIGNIN": "SIGNUP"}
+				</Button>
 			</div>
 		);
 	}
 
 }
 
+const mapDispatchToProps = dispatch =>{
+	return {
+		onAuth: (email, password, isSignUp) => dispatch(actions.auth(email, password, isSignUp)),
+	};
+}
 
-export default Auth;
+
+export default connect(null, mapDispatchToProps)(Auth);
