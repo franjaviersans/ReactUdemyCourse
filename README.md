@@ -5,3 +5,19 @@ This repository stores my assigments for a Udemy course to reinforce my knowledg
 ## Assignment 1
 
 - Develop a React app and learn how to create components, states & props, and styling.
+
+## Assignment 2
+
+- Using lists to create dynamic elements with React.
+
+## Assignment 3
+
+- Manipulating routes in react to create a multi-page application.
+
+## Assignment 4
+
+- First steps to use redux.
+
+## Assignment 5
+
+- Adding Redux to a project.

@@ -1,0 +1,15 @@
+.App {
+  margin: 16px;
+}
+
+.Input{
+  margin: auto;
+  text-align: center;
+  width: 100%;
+}
+
+.App p{
+  margin: 25px auto;
+  width: 100%;
+  text-align: center;
+}
