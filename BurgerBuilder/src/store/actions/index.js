@@ -17,4 +17,5 @@ export {
 	logout,
 	setAuthRedirectPath,
 	authCheckState,
+	logoutSucceed,
 } from './auth';
