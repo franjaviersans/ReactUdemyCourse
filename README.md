@@ -21,3 +21,9 @@ This repository stores my assigments for a Udemy course to reinforce my knowledg
 ## Assignment 5
 
 - Adding Redux to a project.
+
+## Burger Builder
+
+- Main project of the course, for an application for building, and ordering a burger.
+- It uses dependencies as: Redux, Thunk, Redux Saga, Router, Axios, and more.
+- It also includes CSS animations with Transition, and a Firebase backend server to allow authentication and storing order information.
