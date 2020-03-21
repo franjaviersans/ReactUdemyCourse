@@ -30,9 +30,9 @@ class App extends Component {
           <li>Add two-way-binding to your input (in UserInput) to also display the starting username</li>
           <li>Add styling of your choice to your components/ elements in the components - both with inline styles and stylesheets</li>
         </ol>
-        <UserInput 
-          inputHandler={this.nameHandler} 
-          username={this.state.username}/> 
+        <UserInput
+          inputHandler={this.nameHandler}
+          username={this.state.username}/>
         <UserOutput text={this.state.username}/>
         <UserOutput text="JP"/>
         <UserOutput text="Alejandro"/>

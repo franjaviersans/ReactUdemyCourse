@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 const UserInput = (props) => {
 	const style ={
@@ -8,8 +8,8 @@ const UserInput = (props) => {
 	};
 	return (
 	<div style={style} >
-		<input type="text" 
-		onChange={props.inputHandler} 
+		<input type="text"
+		onChange={props.inputHandler}
 		value={props.username}/>
 	</div>
 	);
