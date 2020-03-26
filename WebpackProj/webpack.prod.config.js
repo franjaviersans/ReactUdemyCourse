@@ -1,7 +1,11 @@
 const path = require('path');
 const autoprefixer = require('autoprefixer');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const webpack = require('webpack');
+
+// Source maps are resource heavy and can cause out of memory issue for large source files.
+const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
 
 module.exports = {
 	devtool: 'cheap-module-source-map',
@@ -27,7 +31,7 @@ module.exports = {
 				exclude: /node_modules/,
 				use: [
 					{ loader: 'style-loader' },
-					{ 
+					{
 						loader: 'css-loader',
 						options: {
 							importLoaders: 1,
@@ -35,7 +39,7 @@ module.exports = {
 							localIdentName: '[name]__[local]__[hash:base64:5]'
 						}
 					},
-					{ 
+					{
 						loader: 'postcss-loader',
 						options: {
 							ident: 'postcss',
@@ -62,7 +66,22 @@ module.exports = {
 			template: __dirname+'/src/index.html',
 			filename: 'index.html',
 			inject: 'body'
-		}),
-        new webpack.optimize.UglifyJsPlugin()
-	]
+		})
+	],
+	// Minify the code.
+  optimization: {
+    minimizer: [
+      // we specify a custom UglifyJsPlugin here to get source maps in production
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        uglifyOptions: {
+          compress: false,
+          ecma: 6,
+          mangle: true
+        },
+        sourceMap: shouldUseSourceMap
+      })
+    ]
+  },
 };
