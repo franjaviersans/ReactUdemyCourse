@@ -11,6 +11,8 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import { updateObject, checkValidity } from '../../shared/utility';
 
 const auth  = props => {
+	const {onSetAuthRedirectPath, buildingBurger, authRedirectPath} = props;
+
 	const [isSignUp, setIsSignUp] = useState(false);
 	const [controls, setControls] = useState({
 		email: {
@@ -47,10 +49,10 @@ const auth  = props => {
 	});
 
 	useEffect(() => {
-		if(!props.buildingBurger && props.authRedirectPath !== '/'){
-			props.onSetAuthRedirectPath();
+		if(!buildingBurger && authRedirectPath !== '/'){
+			onSetAuthRedirectPath();
 		}
-	}, []);
+	}, [onSetAuthRedirectPath, buildingBurger, authRedirectPath]);
 
 
 	const inputChangedHandler = (event, controlName) =>{
@@ -112,7 +114,7 @@ const auth  = props => {
 	let authRedirect = null;
 
 	if(props.isAuth){
-		authRedirect = <Redirect to={props.authRedirectPath} />
+		authRedirect = <Redirect to={authRedirectPath} />
 	}
 
 	return (
