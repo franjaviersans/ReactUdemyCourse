@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Aux from '../../hoc/AuxHOC/AuxHOC';
 import Burger from '../../components/Burger/Burger';
@@ -12,8 +12,22 @@ import * as actions from '../../store/actions/index';
 import axios from '../../axios-orders';
 
 const burgerBuilder = props => {
-	const {onInitIngredients} = props;
 	const [purchasing, setPurchasing] = useState(false);
+
+	const dispatch = useDispatch();
+
+	const onIngredientAdded =  (ingName) => dispatch(actions.addIngredient(ingName));
+	const onIngredientRemoved =  (ingName) => dispatch(actions.removeIngredient(ingName));
+	const onInitIngredients =  useCallback((ingName) => dispatch(actions.initIngredients(ingName)), []);
+	const onInitPurchase =  () => dispatch(actions.purchaseInit());
+	const onSetAuthRedirectPath =  (path) => dispatch(actions.setAuthRedirectPath(path));
+	
+	const ingredients = useSelector(state => state.burgerBuilder.ingredients);
+	const totalPrice = useSelector(state => state.burgerBuilder.totalPrice);
+	const error = useSelector(state => state.burgerBuilder.error);
+	const isAuth = useSelector(state => state.auth.token !== null);
+	
+	
 
 	useEffect(() => {
 		onInitIngredients();
@@ -30,10 +44,10 @@ const burgerBuilder = props => {
 	}
 
 	const purchasehandler = () => {
-		if(props.isAuth){
+		if(isAuth){
 			setPurchasing(true);
 		}else{
-			props.onSetAuthRedirectPath('/checkout');
+			onSetAuthRedirectPath('/checkout');
 			props.history.push('/auth');	
 		}
 	}
@@ -43,12 +57,12 @@ const burgerBuilder = props => {
 	}
 
 	const purchaseContinuehandler = () => {
-		props.onInitPurchase();
+		onInitPurchase();
 		props.history.push('/checkout');
 	}
 
 	const disabledInfo = {
-		...props.ingredients
+		...ingredients
 	};
 
 	for(let key in disabledInfo){
@@ -56,21 +70,21 @@ const burgerBuilder = props => {
 	}
 
 	let orderSummary = null;
-	let burger = props.error ? <p>{"Ingredients can't be loaded!"}</p> : <Spinner />;
+	let burger = error ? <p>{"Ingredients can't be loaded!"}</p> : <Spinner />;
 
 
-	if (props.ingredients){
+	if (ingredients){
 		burger = (
 			<Aux>
-				<Burger ingredients={props.ingredients}/>
+				<Burger ingredients={ingredients}/>
 				<BuildControls 
-					ingredientAdded={(ing) => props.onIngredientAdded(ing)}
-					ingredientRemove={(ing) => props.onIngredientRemoved(ing)}
+					ingredientAdded={(ing) => onIngredientAdded(ing)}
+					ingredientRemove={(ing) => onIngredientRemoved(ing)}
 					disabled={disabledInfo}
-					price={props.totalPrice}
-					purchasable={updatePurchaseState(props.ingredients)}
+					price={totalPrice}
+					purchasable={updatePurchaseState(ingredients)}
 					ordered={purchasehandler}
-					isAuth={props.isAuth}
+					isAuth={isAuth}
 					/>
 			</Aux>
 				);
@@ -79,8 +93,8 @@ const burgerBuilder = props => {
 			<OrderSummary 
 				purchaseCancelled={purchaseCancelHandler}
 				purchaseContinued={purchaseContinuehandler}
-				ingredients={props.ingredients}
-				price={props.totalPrice}
+				ingredients={ingredients}
+				price={totalPrice}
 				/>
 			);
 	}
@@ -95,24 +109,4 @@ const burgerBuilder = props => {
 	);
 }
 
-const mapStateToProps = state => {
-	return {
-		ingredients: state.burgerBuilder.ingredients,
-		totalPrice: state.burgerBuilder.totalPrice,
-		error: state.burgerBuilder.error,
-		isAuth: state.auth.token !== null,
-	}
-};
-
-const mapDispatchToProps = dispatch => {
-	return {
-		onIngredientAdded: (ingName) => dispatch(actions.addIngredient(ingName)),
-		onIngredientRemoved: (ingName) => dispatch(actions.removeIngredient(ingName)),
-		onInitIngredients: (ingName) => dispatch(actions.initIngredients(ingName)),
-		onInitPurchase: () => dispatch(actions.purchaseInit()),
-		onSetAuthRedirectPath: (path) => dispatch(actions.setAuthRedirectPath(path)),
-	}
-};
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(burgerBuilder, axios));
+export default withErrorHandler(burgerBuilder, axios);

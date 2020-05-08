@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 
 import Aux from '../../hoc/AuxHOC/AuxHOC';
@@ -9,6 +9,8 @@ import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer'
 
 const layout = props => {
 	const [showSideDrawer, toggleSideDrawer] = useState(false);
+
+	const isAuthenticated = useSelector(state => state.auth.token !== null);
 
 	const sideDrawerClosedHandler = () => {
 		toggleSideDrawer(false);
@@ -21,10 +23,10 @@ const layout = props => {
 	return(
 		<Aux>
 			<Toolbar 
-				isAuth={props.isAuthenticated}
+				isAuth={isAuthenticated}
 				clicked={sideDrawerToggleHandler}/>
 			<SideDrawer 
-				isAuth={props.isAuthenticated}
+				isAuth={isAuthenticated}
 				open={showSideDrawer}
 				closed={sideDrawerClosedHandler}/>
 			<main className={classes.Content} >
@@ -34,12 +36,5 @@ const layout = props => {
 	);
 };
 
-
-const mapStatetoProps = state => {
-	return {
-		isAuthenticated: state.auth.token !== null,
-	};
-}
-
-export default connect(mapStatetoProps)(layout);
+export default layout;
 
