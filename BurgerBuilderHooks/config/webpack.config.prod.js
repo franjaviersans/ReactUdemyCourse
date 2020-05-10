@@ -77,7 +77,7 @@ module.exports = {
     // https://github.com/facebookincubator/create-react-app/issues/290
     // `web` extension prefixes have been added for better support
     // for React Native Web.
-    extensions: [".web.js", ".mjs", ".js", ".json", ".web.jsx", ".jsx"],
+    extensions: [".web.js", ".mjs", ".js", ".json", ".web.jsx", ".jsx", ".ts", ".tsx"],
     alias: {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
@@ -138,6 +138,11 @@ module.exports = {
             options: {
               compact: true,
             },
+          },
+          {
+            // All files with a '.ts' or '.tsx' extension will be handled by 'awesome-typescript-loader'.
+            test: /\.tsx?$/,
+            loader: "awesome-typescript-loader",
           },
           // The notation here is somewhat confusing.
           // "postcss" loader applies autoprefixer to our CSS.
