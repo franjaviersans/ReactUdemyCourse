@@ -4,7 +4,7 @@ import { AxiosStatic, AxiosInstance } from 'axios';
 import { IErrorMessage } from '../Types/Types';
 
 export default (httpHandler: AxiosInstance) : [IErrorMessage, () => void ]  => {
-    const [error, setError] = useState<IErrorMessage | null>(null);
+    const [error, setError] = useState<IErrorMessage>(null);
 
     const reqInterceptor = httpHandler.interceptors.request.use(req => {
         setError(null);

@@ -11,7 +11,7 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import { updateObject, checkValidity } from '../../shared/utility';
 import { StoreStateType } from '../../store/reducers/StateType';
 import { AuthStoreState } from '../../store/reducers/auth';
-import { IElementConfig, IFormControl } from '../../Types/Types';
+import { IElementConfig, IFormControl, IErrorMessage } from '../../Types/Types';
 
 type Controls = {
 	email: IFormControl;
@@ -65,7 +65,7 @@ const auth: React.FunctionComponent  = () => {
 	const onSetAuthRedirectPath =  useCallback(() => dispatch(actions.setAuthRedirectPath('/')), []);
 
 	const loading = useSelector<StoreStateType, boolean>(state => state.auth.loading);
-	const error = useSelector<StoreStateType, {message:string} | null>(state => state.auth.error);
+	const error = useSelector<StoreStateType, IErrorMessage>(state => state.auth.error);
 	const isAuth = useSelector<StoreStateType, boolean>(state => state.auth.token !== null);
 	const buildingBurger = useSelector<StoreStateType, boolean>(state => state.burgerBuilder.building);
 	const authRedirectPath = useSelector<StoreStateType, string>(state => state.auth.authRedirectPath);

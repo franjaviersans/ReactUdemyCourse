@@ -43,7 +43,7 @@ export const FETCH_ORDERS_START = 'FETCH_ORDERS_START';
 export const FETCH_ORDERS_SUCCESS = 'FETCH_ORDERS_SUCCESS';
 export const FETCH_ORDERS_FAIL = 'FETCH_ORDERS_FAIL';
 
-export interface OrderPurcharseAction {
+export interface OrderPurchaseAction {
     type: typeof PURCHASE_BURGER,
     orderData: IOrder,
     token: string,
@@ -67,11 +67,6 @@ export interface OrderPurchaseInitAction {
     type: typeof PURCHASE_INIT
 }
 
-
-export interface OrderPurchaseAction {
-    type: typeof PURCHASE_BURGER
-}
-
 export interface OrderFetchAction {
     type: typeof FETCH_ORDERS,
     token: string,
@@ -93,12 +88,11 @@ export interface OrderFetchFailAction {
 
 
 
-export type OrderActionTypes = OrderPurcharseAction |
+export type OrderActionTypes = OrderPurchaseAction |
                                 OrderPurchaseSuccessAction | 
                                 OrderPurchaseFailAction |
                                 OrderPurchaseStartAction |
                                 OrderPurchaseInitAction |
-                                OrderPurchaseAction |
                                 OrderFetchAction | 
                                 OrderFetchStartAction |
                                 OrderFetchSuccesAction |

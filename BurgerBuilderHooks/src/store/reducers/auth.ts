@@ -1,12 +1,11 @@
 import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../../shared/utility';
+import { IErrorMessage } from '../../Types/Types';
 
 export type AuthStoreState = {
 	token: string | null;
 	userId: string | null;
-	error: {
-		message: string;
-	} | null;
+	error: IErrorMessage;
 	loading: boolean;
 	authRedirectPath: string;
 }

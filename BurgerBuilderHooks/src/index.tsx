@@ -14,6 +14,11 @@ import orderReducer from './store/reducers/order';
 import authReducer from './store/reducers/auth';
 import { watchAuth, watchBurgerBuilder, watchOrder } from './store/sagas';
 
+declare global {
+	interface Window {
+		__REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+	}
+}
 
 const composeEnhancers = (process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null) || compose;
 

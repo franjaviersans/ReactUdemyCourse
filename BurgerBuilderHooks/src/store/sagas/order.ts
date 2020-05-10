@@ -2,9 +2,10 @@ import { put }  from 'redux-saga/effects';
 
 import axios from '../../axios-orders';
 import * as actions from '../actions/index';
+import * as actionTypes  from '../actions/actionTypes';
 
 
-export function* purchaseBurgerSaga(action) {
+export function* purchaseBurgerSaga(action: actionTypes.OrderPurchaseAction) {
 
 	//dispatch action to change loading value
 	yield put(actions.purchaseBurgerStart());
@@ -15,14 +16,14 @@ export function* purchaseBurgerSaga(action) {
 		const response = yield axios.post('/orders.json?auth=' + action.token, action.orderData);
 		//dispatch action to indicate that there has been a success post
 		yield put(actions.purchaseBurgerSuccess(response.data.name, action.orderData));
-	}catch(error){
-		yield put(actions.purchaseBurgerFail(error));
+	}catch(err){
+		yield put(actions.purchaseBurgerFail());
 	}
 }
 
 
 
-export function* fetchOrdersSaga(action) {
+export function* fetchOrdersSaga(action: actionTypes.OrderFetchAction) {
 	//dispatch action to change loading value
 	yield put(actions.fetchOrdersStart());
 
@@ -41,7 +42,7 @@ export function* fetchOrdersSaga(action) {
 
 		yield put(actions.fetchOrdersSuccess(fetchedOrders));
 	} catch (err) {
-		yield put(actions.fetchOrdersFail(err));
+		yield put(actions.fetchOrdersFail());
 	}
 }
 
