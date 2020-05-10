@@ -1,1 +1,1 @@
-export const CheckoutSummary : string;
+export const CheckoutSummary: string;

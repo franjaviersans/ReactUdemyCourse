@@ -1,1 +1,1 @@
-export const Logo:string;
+export const Logo: string;

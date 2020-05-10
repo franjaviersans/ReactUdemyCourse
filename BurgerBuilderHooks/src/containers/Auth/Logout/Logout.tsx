@@ -5,15 +5,14 @@ import { Redirect } from "react-router-dom";
 import * as actions from "../../../store/actions/index";
 
 const logout: React.FunctionComponent = () => {
-	const dispatch = useDispatch();
-	const onLogout  = useCallback(() => dispatch(actions.logout()), []);
+  const dispatch = useDispatch();
+  const onLogout = useCallback(() => dispatch(actions.logout()), []);
 
-	useEffect(() => {
-		onLogout();
-	}, [onLogout]);
+  useEffect(() => {
+    onLogout();
+  }, [onLogout]);
 
-	return <Redirect to="/"/>;
+  return <Redirect to="/" />;
 };
-
 
 export default logout;

@@ -7,32 +7,31 @@ import Backdrop from "../../UI/Backdrop/Backdrop";
 import Aux from "../../../hoc/AuxHOC/AuxHOC";
 
 type sideDrawerProps = {
-	open: boolean;
-	closed: () => void;
-	isAuth: boolean;
+  open: boolean;
+  closed: () => void;
+  isAuth: boolean;
 };
 
 const sideDrawer: React.FunctionComponent<sideDrawerProps> = (props) => {
+  let attachedClasses = [classes.SideDrawer, classes.Close];
 
-	let attachedClasses = [classes.SideDrawer, classes.Close];
-	
-	if(props.open) {
-		attachedClasses = [classes.SideDrawer, classes.Open];
-	}
+  if (props.open) {
+    attachedClasses = [classes.SideDrawer, classes.Open];
+  }
 
-	return (
-		<Aux>
-			<Backdrop show={props.open} clicked={props.closed}/>
-			<div className={attachedClasses.join(" ")} onClick={props.closed}>
-				<div  className={classes.Logo}>
-					<Logo />
-				</div>
-				<nav >
-					<NavigationItems isAuth={props.isAuth}/>
-				</nav>
-			</div>
-		</Aux>
-	);
+  return (
+    <Aux>
+      <Backdrop show={props.open} clicked={props.closed} />
+      <div className={attachedClasses.join(" ")} onClick={props.closed}>
+        <div className={classes.Logo}>
+          <Logo />
+        </div>
+        <nav>
+          <NavigationItems isAuth={props.isAuth} />
+        </nav>
+      </div>
+    </Aux>
+  );
 };
 
 export default sideDrawer;

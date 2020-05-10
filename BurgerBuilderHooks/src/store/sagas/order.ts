@@ -1,60 +1,47 @@
-import { put }  from "redux-saga/effects";
+import { put } from "redux-saga/effects";
 
 import axios from "../../axios-orders";
 import * as actions from "../actions/index";
-import * as actionTypes  from "../actions/actionTypes";
-
+import * as actionTypes from "../actions/actionTypes";
 
 export function* purchaseBurgerSaga(action: actionTypes.OrderPurchaseAction) {
+  //dispatch action to change loading value
+  yield put(actions.purchaseBurgerStart());
 
-	//dispatch action to change loading value
-	yield put(actions.purchaseBurgerStart());
-
-
-	try {
-		//send data to server
-		const response = yield axios.post("/orders.json?auth=" + action.token, action.orderData);
-		//dispatch action to indicate that there has been a success post
-		yield put(actions.purchaseBurgerSuccess(response.data.name, action.orderData));
-	}catch(err) {
-		yield put(actions.purchaseBurgerFail());
-	}
+  try {
+    //send data to server
+    const response = yield axios.post("/orders.json?auth=" + action.token, action.orderData);
+    //dispatch action to indicate that there has been a success post
+    yield put(actions.purchaseBurgerSuccess(response.data.name, action.orderData));
+  } catch (err) {
+    yield put(actions.purchaseBurgerFail());
+  }
 }
-
-
 
 export function* fetchOrdersSaga(action: actionTypes.OrderFetchAction) {
-	//dispatch action to change loading value
-	yield put(actions.fetchOrdersStart());
+  //dispatch action to change loading value
+  yield put(actions.fetchOrdersStart());
 
-	const queryParams = "?auth=" + action.token + '&orderBy="userId"&equalTo="' + action.userId + '"';
+  const queryParams = "?auth=" + action.token + '&orderBy="userId"&equalTo="' + action.userId + '"';
 
-	try {
-		const res = yield axios.get("./orders.json" + queryParams);
-		const fetchedOrders = [];
+  try {
+    const res = yield axios.get("./orders.json" + queryParams);
+    const fetchedOrders = [];
 
-		for( const key in res.data) {
-			if(!!key)
-			{
-				fetchedOrders.push({
-					...res.data[key],
-					id: key
-				});
-			}
-		}
+    for (const key in res.data) {
+      if (!!key) {
+        fetchedOrders.push({
+          ...res.data[key],
+          id: key,
+        });
+      }
+    }
 
-		yield put(actions.fetchOrdersSuccess(fetchedOrders));
-	} catch (err) {
-		yield put(actions.fetchOrdersFail());
-	}
+    yield put(actions.fetchOrdersSuccess(fetchedOrders));
+  } catch (err) {
+    yield put(actions.fetchOrdersFail());
+  }
 }
-
-
-
-
-
-
-
 
 /*
 
