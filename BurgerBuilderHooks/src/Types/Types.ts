@@ -3,7 +3,7 @@ export interface IIngredient {
     cheese: number;
     meat: number;
     salad: number;
-};
+}
 
 interface IValueDisplayValue {
     value: string;
@@ -11,13 +11,13 @@ interface IValueDisplayValue {
     options?: [
         {value: string, displayValue: string},
         {value: string, displayValue: string},
-    ]
+    ];
 }
 
 export interface IElementConfig {
     type?: string;
     placeholder?: string;
-    options?: IValueDisplayValue[]
+    options?: IValueDisplayValue[];
 }
 
 export interface IRules {
@@ -29,10 +29,10 @@ export interface IRules {
 }
 
 export interface ISimpleControlForm {
-    elementType: string,
-	elementConfig: IElementConfig,	
-	value: string,
-    valid: boolean,
+    elementType: string;
+	elementConfig: IElementConfig;	
+	value: string;
+    valid: boolean;
 }
 
 export type IFormControl =  {
@@ -52,7 +52,7 @@ export interface IOrderFormData {
 
 
 export interface IOrder {
-    id: string,
+    id: string;
     ingredients: IIngredient;
     orderData: IOrderFormData;
     price: string;

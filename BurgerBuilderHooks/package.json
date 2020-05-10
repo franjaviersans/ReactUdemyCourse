@@ -41,7 +41,6 @@
     "postcss-flexbugs-fixes": "3.2.0",
     "postcss-loader": "2.0.8",
     "promise": "8.0.1",
-    "prop-types": "^15.7.2",
     "raf": "3.4.0",
     "react": "^16.13.1",
     "react-dev-utils": "^9.2.0-next.80",
@@ -56,6 +55,7 @@
     "source-map-loader": "^0.2.4",
     "style-loader": "0.19.0",
     "sw-precache-webpack-plugin": "0.11.4",
+    "tslint-react": "^5.0.0",
     "typescript": "^3.8.3",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "url-loader": "^4.0.0",
@@ -66,7 +66,9 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node scripts/test.js --env=jsdom",
+    "lint": "tslint --project .",
+    "lint:fix": "tslint --project . --fix"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -111,6 +113,8 @@
     "extends": "react-app"
   },
   "devDependencies": {
+    "tslint": "^6.1.2",
+    "tslint-webpack-plugin": "^2.1.0",
     "typings-for-css-modules-loader": "^1.7.0",
     "webpack": "^4.42.0"
   }

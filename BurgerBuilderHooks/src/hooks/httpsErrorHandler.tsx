@@ -1,7 +1,7 @@
-import {useState, useEffect} from 'react';
-import { AxiosStatic, AxiosInstance } from 'axios';
+import { useState, useEffect } from "react";
+import { AxiosStatic, AxiosInstance } from "axios";
 
-import { IErrorMessage } from '../Types/Types';
+import { IErrorMessage } from "../Types/Types";
 
 export default (httpHandler: AxiosInstance) : [IErrorMessage, () => void ]  => {
     const [error, setError] = useState<IErrorMessage>(null);
@@ -9,8 +9,8 @@ export default (httpHandler: AxiosInstance) : [IErrorMessage, () => void ]  => {
     const reqInterceptor = httpHandler.interceptors.request.use(req => {
         setError(null);
         return req;
-    })
-    const resInterceptor = httpHandler.interceptors.response.use(res => res, err =>{
+    });
+    const resInterceptor = httpHandler.interceptors.response.use(res => res, err => {
         setError(err);
     });
 
@@ -21,9 +21,9 @@ export default (httpHandler: AxiosInstance) : [IErrorMessage, () => void ]  => {
         };
     }, [reqInterceptor, resInterceptor]);
 
-    const errorConfirmedHandler = () =>{
+    const errorConfirmedHandler = () => {
         setError(null);
-    }
+    };
         
     return [error, errorConfirmedHandler];
-}
+};

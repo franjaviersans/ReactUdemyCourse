@@ -1,22 +1,22 @@
-import React from 'react';
+import React from "react";
 
-import Aux from '../../../hoc/AuxHOC/AuxHOC'
-import Button, {ButtonType} from '../../UI/Button/Button';
-import { IIngredient, IngredientTypes } from '../../../Types/Types';
+import Aux from "../../../hoc/AuxHOC/AuxHOC";
+import Button, { ButtonType } from "../../UI/Button/Button";
+import { IIngredient, IngredientTypes } from "../../../Types/Types";
 
 type orderSummaryProps = {
 	ingredients: IIngredient;
 	price: number;
 	purchaseCancelled: () => void;
 	purchaseContinued: () => void;
-}
+};
 
 const orderSummary: React.FunctionComponent<orderSummaryProps> = (props) => {
 	
 	const ing: JSX.Element[] = Object.keys(props.ingredients).map((igKey: string) => 
 					<li key={igKey}>
-						<span style={{textTransform: 'capitalize'}}>
-						{ igKey}
+						<span style={{textTransform: "capitalize"}}>
+						{igKey}
 						</span>
 						{`:  ${props.ingredients[igKey as IngredientTypes]}`}
 					</li>);

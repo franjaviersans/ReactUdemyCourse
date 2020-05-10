@@ -1,6 +1,6 @@
-import * as actionTypes from '../actions/actionTypes';
-import { updateObject } from '../../shared/utility';
-import { IErrorMessage } from '../../Types/Types';
+import * as actionTypes from "../actions/actionTypes";
+import { updateObject } from "../../shared/utility";
+import { IErrorMessage } from "../../Types/Types";
 
 export type AuthStoreState = {
 	token: string | null;
@@ -8,43 +8,43 @@ export type AuthStoreState = {
 	error: IErrorMessage;
 	loading: boolean;
 	authRedirectPath: string;
-}
+};
 
 const initialState: AuthStoreState = {
 	token: null,
 	userId: null,
 	error: null,
 	loading: false,
-	authRedirectPath: '/',
+	authRedirectPath: "/",
 };
 
-const authSuccess= (state : AuthStoreState, action: actionTypes.AuthSuccessAction) =>{
+const authSuccess = (state : AuthStoreState, action: actionTypes.AuthSuccessAction) => {
 	return updateObject(state, {
 		token: action.idToken,
 		userId: action.userId,
 		error: null, 
 		loading: false,
 	});
-}
+};
 
-const authFail = (state : AuthStoreState, action: actionTypes.AuthFailAction) =>{
+const authFail = (state : AuthStoreState, action: actionTypes.AuthFailAction) => {
 	return updateObject(state, {
 		error: action.error, 
 		loading: false,
 	});
-}
+};
 
-const authStart = (state : AuthStoreState, action: actionTypes.AuthStartAction) =>{
+const authStart = (state : AuthStoreState, action: actionTypes.AuthStartAction) => {
 	return updateObject(state, {error: null, loading: true});
-}
+};
 
 const authLogout = (state : AuthStoreState, action: actionTypes.AuthLogoutAction) => {
 	return updateObject(state, {token: null, userId: null});
-}
+};
 
-const setAuthRedirectPath = (state : AuthStoreState, action: actionTypes.AuthAuthRedirectPathAction) =>{
+const setAuthRedirectPath = (state : AuthStoreState, action: actionTypes.AuthAuthRedirectPathAction) => {
 	return updateObject(state, {authRedirectPath: action.path});
-}
+};
 
 
 

@@ -6,4 +6,4 @@ export interface StoreStateType {
     auth: AuthStoreState;
     burgerBuilder: BurgerStoreState;
     order: OrderStoreState;
-};
+}

@@ -1,12 +1,12 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React from "react";
+import { NavLink } from "react-router-dom";
 
-import classes from './NavigationItem.css';
+import classes from "./NavigationItem.css";
 
 type navigationItemProps = {
 	link: string;
 	exact: boolean;
-}
+};
 
 const navigationItem: React.FunctionComponent<navigationItemProps> = (props) => (
 	<li className={classes.NavigationItem}>

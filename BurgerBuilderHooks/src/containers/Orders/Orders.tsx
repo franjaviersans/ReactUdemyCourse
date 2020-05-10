@@ -1,13 +1,13 @@
-import React, { useEffect, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import Order from '../../components/Order/Order';
-import axios from '../../axios-orders';
-import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-import * as actions from '../../store/actions/index';
-import Spinner from '../../components/UI/Spinner/Spinner'
-import { StoreStateType } from '../../store/reducers/StateType';
-import { IOrder } from '../../Types/Types';
+import Order from "../../components/Order/Order";
+import axios from "../../axios-orders";
+import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
+import * as actions from "../../store/actions/index";
+import Spinner from "../../components/UI/Spinner/Spinner";
+import { StoreStateType } from "../../store/reducers/StateType";
+import { IOrder } from "../../Types/Types";
 
 const orders = () => {
 
@@ -27,13 +27,14 @@ const orders = () => {
 
 	let ordersElement: JSX.Element[] = [<Spinner key={"Spinner"}/>];
 
-	if(!loading){
+	if(!loading) {
 		ordersElement = orders.map(order =>
-			<Order key={order.id}
+			<Order 
+				key={order.id}
 				ingredients={order.ingredients}
 				price={order.price}
 			/>
-		)
+		);
 	}
 
 	return (
@@ -41,7 +42,7 @@ const orders = () => {
 			{ordersElement}
 		</div>
 	);
-}
+};
 
 
 

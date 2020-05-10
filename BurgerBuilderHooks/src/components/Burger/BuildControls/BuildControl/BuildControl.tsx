@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import classes from './BuildControl.css'
+import classes from "./BuildControl.css";
 
 type buildControlProps = {
 	label: string;
@@ -8,7 +8,7 @@ type buildControlProps = {
 	removed: () => void;
 	added: () => void;
 
-}
+};
 
 const buildControl: React.FunctionComponent<buildControlProps> = (props) => {
 	return (<div className={classes.BuildControl}>

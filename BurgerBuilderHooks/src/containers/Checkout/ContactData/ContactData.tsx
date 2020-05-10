@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import Button, { ButtonType } from '../../../components/UI/Button/Button';
-import Spinner from '../../../components/UI/Spinner/Spinner';
-import classes from './ContactData.css';
-import axios from '../../../axios-orders';
-import Input from '../../../components/UI/Input/Input';
-import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler'
-import * as actions from '../../../store/actions/index';
-import { updateObject, checkValidity } from '../../../shared/utility';
-import { IFormControl, ISimpleControlForm, IOrder, IIngredient, IOrderFormData } from '../../../Types/Types';
-import { StoreStateType } from '../../../store/reducers/StateType';
-import { type } from 'os';
+import Button, { ButtonType } from "../../../components/UI/Button/Button";
+import Spinner from "../../../components/UI/Spinner/Spinner";
+import classes from "./ContactData.css";
+import axios from "../../../axios-orders";
+import Input from "../../../components/UI/Input/Input";
+import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
+import * as actions from "../../../store/actions/index";
+import { updateObject, checkValidity } from "../../../shared/utility";
+import { IFormControl, ISimpleControlForm, IOrder, IIngredient, IOrderFormData } from "../../../Types/Types";
+import { StoreStateType } from "../../../store/reducers/StateType";
+import { type } from "os";
 
 type Controls = {
 	name: IFormControl;
@@ -20,50 +20,50 @@ type Controls = {
 	country: IFormControl;
 	email: IFormControl;
 	deliveryMethod: ISimpleControlForm;
-}
+};
 
 type FormElement = {
 	id: keyof Controls;
 	config: IFormControl | ISimpleControlForm
-}
+};
 
 const contactData = () => {
 	const [orderForm, setOrderForm] = useState<Controls>({
 			name: {
-				elementType: 'input',
+				elementType: "input",
 				elementConfig: {
-					type: 'text',
-					placeholder: 'Your Name',
+					type: "text",
+					placeholder: "Your Name",
 				},	
-				value: '',
+				value: "",
 				validation: {
 					required: true
 				},
 				valid: false,
 				touched: false,
-				errorMessage: 'Please enter a non-empty name',
+				errorMessage: "Please enter a non-empty name",
 			},
 			street: {
-				elementType: 'input',
+				elementType: "input",
 				elementConfig: {
-					type: 'text',
-					placeholder: 'Street',
+					type: "text",
+					placeholder: "Street",
 				},	
-				value: '',
+				value: "",
 				validation: {
 					required: true
 				},
 				valid: false,
 				touched: false,
-				errorMessage: 'Please enter a non-empty street',
+				errorMessage: "Please enter a non-empty street",
 			},
 			zipCode: {
-				elementType: 'input',
+				elementType: "input",
 				elementConfig: {
-					type: 'text',
-					placeholder: 'ZIP Code',
+					type: "text",
+					placeholder: "ZIP Code",
 				},	
-				value: '',
+				value: "",
 				validation: {
 					required: true,
 					minLength: 5,
@@ -71,46 +71,46 @@ const contactData = () => {
 				},
 				valid: false,
 				touched: false,
-				errorMessage: 'Please enter a ZIP code of 5 characters',
+				errorMessage: "Please enter a ZIP code of 5 characters",
 			},
 			country: {
-				elementType: 'input',
+				elementType: "input",
 				elementConfig: {
-					type: 'text',
-					placeholder: 'Country',
+					type: "text",
+					placeholder: "Country",
 				},	
-				value: '',
+				value: "",
 				validation: {
 					required: true
 				},
 				valid: false,
 				touched: false,
-				errorMessage: 'Please enter a non-empty country',
+				errorMessage: "Please enter a non-empty country",
 			},
 			email: {
-				elementType: 'input',
+				elementType: "input",
 				elementConfig: {
-					type: 'email',
-					placeholder: 'Your E-Mail',
+					type: "email",
+					placeholder: "Your E-Mail",
 				},	
-				value: '',
+				value: "",
 				validation: {
 					required: true,
 					isEmail: true
 				},
 				valid: false,
 				touched: false,
-				errorMessage: 'Please enter a non-empty email',
+				errorMessage: "Please enter a non-empty email",
 			},
 			deliveryMethod:  {
-				elementType: 'select',
+				elementType: "select",
 				elementConfig: {
 					options: [
-						{value: 'fastest', displayValue: 'Fastest'},
-						{value: 'cheapest', displayValue: 'Cheapest'},
+						{value: "fastest", displayValue: "Fastest"},
+						{value: "cheapest", displayValue: "Cheapest"},
 					]
 				},	
-				value: 'fastest',
+				value: "fastest",
 				valid: true,
 			},
 		}
@@ -134,9 +134,12 @@ const contactData = () => {
 
 		const formData: IOrderFormData = {};
 
-		for(let formElementIdentifier in orderForm){
-			const formElementIdentifierKey = formElementIdentifier as keyof IOrderFormData;
-			formData[formElementIdentifierKey]	 = orderForm[formElementIdentifierKey].value;
+		for(const formElementIdentifier in orderForm) {
+			if(!!formElementIdentifier)
+			{
+				const formElementIdentifierKey = formElementIdentifier as keyof IOrderFormData;
+				formData[formElementIdentifierKey]	 = orderForm[formElementIdentifierKey].value;
+			}
 		}
 
 		const order: IOrder = {
@@ -145,17 +148,17 @@ const contactData = () => {
 			orderData: formData,	
 			userId: userId,
 			id: ""
-		}
+		};
 
 
 		//call action
 		onOrderBurger(order, token);
-	}
+	};
 
-	const inputChangedHandler = (event: React.ChangeEvent, inputIdentifier: keyof Controls) =>{
+	const inputChangedHandler = (event: React.ChangeEvent, inputIdentifier: keyof Controls) => {
 		const inputEvent = event as React.ChangeEvent<HTMLInputElement>;
 
-		const validation =  'validation' in orderForm[inputIdentifier] ? 
+		const validation =  "validation" in orderForm[inputIdentifier] ? 
 			(orderForm[inputIdentifier] as IFormControl).validation  : undefined;
 
 		//to deep copy the nested object
@@ -172,23 +175,29 @@ const contactData = () => {
 
 		let formIsValid = true;
 
-		for(let inputIdentifiers in updateOrderForm){
-			const inputIdentifiersKey = inputIdentifiers as keyof IOrderFormData;
-			formIsValid	 = formIsValid && updateOrderForm[inputIdentifiersKey].valid;
+		for(const inputIdentifiers in updateOrderForm) {
+			if(!!inputIdentifiers)
+			{
+				const inputIdentifiersKey = inputIdentifiers as keyof IOrderFormData;
+				formIsValid	 = formIsValid && updateOrderForm[inputIdentifiersKey].valid;
+			}
 		}
 
 		setOrderForm(updateOrderForm);
 		setFormIsValid(formIsValid);
-	}
+	};
 	
 	const fromElementsArray: FormElement []  = [];
 		
-	for(let key in orderForm) {
-		const controlsKey = key as keyof Controls;
-		fromElementsArray.push({
-			id: controlsKey,
-			config: orderForm[controlsKey],
-		})
+	for(const key in orderForm) {
+		if(!!key)
+		{
+			const controlsKey = key as keyof Controls;
+			fromElementsArray.push({
+				id: controlsKey,
+				config: orderForm[controlsKey],
+			});
+		}
 	}
 	
 	//render every input element
@@ -199,7 +208,8 @@ const contactData = () => {
 				const touched =  (formElement.config as IFormControl).touched ? (formElement.config as IFormControl).touched  : false;
 				const errorMessage =  (formElement.config as IFormControl).errorMessage ?  (formElement.config as IFormControl).errorMessage  : "";
 
-				return <Input 
+				return(
+				<Input 
 					key={formElement.id}
 					elementType={formElement.config.elementType}
 					elementConfig={formElement.config.elementConfig}
@@ -209,17 +219,19 @@ const contactData = () => {
 					touched={touched}
 					errorMessage={errorMessage}
 					changed={(event) => inputChangedHandler(event, formElement.id)}
-					/>;
+				/>);
 			})}
-			<Button  disabled={!formIsValid}
-				btnType={ButtonType.Success}>
+			<Button  
+				disabled={!formIsValid}
+				btnType={ButtonType.Success}
+			>
 				{"ORDER"}
 			</Button>
 		</form>
 	);
 
-	if(loading){
-		form = <Spinner />	
+	if(loading) {
+		form = <Spinner />;	
 	}
 	
 	return (
@@ -228,7 +240,7 @@ const contactData = () => {
 			{form}
 		</div>
 	);
-}
+};
 
 
-export default withErrorHandler(contactData,axios);
+export default withErrorHandler(contactData, axios);

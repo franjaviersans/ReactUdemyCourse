@@ -1,53 +1,53 @@
 
-import React, { useState, useEffect, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import React, { useState, useEffect, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
 
-import Input from '../../components/UI/Input/Input';
-import Button, { ButtonType } from '../../components/UI/Button/Button';
-import classes from './Auth.css';
-import * as actions from '../../store/actions/index';
-import Spinner from '../../components/UI/Spinner/Spinner';
-import { updateObject, checkValidity } from '../../shared/utility';
-import { StoreStateType } from '../../store/reducers/StateType';
-import { AuthStoreState } from '../../store/reducers/auth';
-import { IElementConfig, IFormControl, IErrorMessage } from '../../Types/Types';
+import Input from "../../components/UI/Input/Input";
+import Button, { ButtonType } from "../../components/UI/Button/Button";
+import classes from "./Auth.css";
+import * as actions from "../../store/actions/index";
+import Spinner from "../../components/UI/Spinner/Spinner";
+import { updateObject, checkValidity } from "../../shared/utility";
+import { StoreStateType } from "../../store/reducers/StateType";
+import { AuthStoreState } from "../../store/reducers/auth";
+import { IElementConfig, IFormControl, IErrorMessage } from "../../Types/Types";
 
 type Controls = {
 	email: IFormControl;
 	password: IFormControl;
-}
+};
 
 type FormElement = {
 	id: keyof Controls;
 	config: IFormControl
-}
+};
 
 const auth: React.FunctionComponent  = () => {
 	const [isSignUp, setIsSignUp] = useState<boolean>(false);
 	const [controls, setControls] = useState<Controls>({
 		email: {
-			elementType: 'input',
+			elementType: "input",
 			elementConfig: {
-				type: 'email',
-				placeholder: 'Mail Address',
+				type: "email",
+				placeholder: "Mail Address",
 			},	
-			value: '',
+			value: "",
 			validation: {
 				required: true,
 				isEmail: true,
 			},
 			valid: false,
 			touched: false,
-			errorMessage: 'Please enter a non-empty e-mail address',
+			errorMessage: "Please enter a non-empty e-mail address",
 		},
 		password: {
-			elementType: 'input',
+			elementType: "input",
 			elementConfig: {
-				type: 'password',
-				placeholder: 'Password',
+				type: "password",
+				placeholder: "Password",
 			},	
-			value: '',
+			value: "",
 			validation: {
 				required: true,
 				minLength: 6,
@@ -62,7 +62,7 @@ const auth: React.FunctionComponent  = () => {
 	const dispatch = useDispatch();
 
 	const onAuth  = (email: string, password: string, isSignUp: boolean) => dispatch(actions.auth(email, password, isSignUp));
-	const onSetAuthRedirectPath =  useCallback(() => dispatch(actions.setAuthRedirectPath('/')), []);
+	const onSetAuthRedirectPath =  useCallback(() => dispatch(actions.setAuthRedirectPath("/")), []);
 
 	const loading = useSelector<StoreStateType, boolean>(state => state.auth.loading);
 	const error = useSelector<StoreStateType, IErrorMessage>(state => state.auth.error);
@@ -72,7 +72,7 @@ const auth: React.FunctionComponent  = () => {
 
 
 	useEffect(() => {
-		if(!buildingBurger && authRedirectPath !== '/'){
+		if(!buildingBurger && authRedirectPath !== "/") {
 			onSetAuthRedirectPath();
 		}
 	}, [onSetAuthRedirectPath, buildingBurger, authRedirectPath]);
@@ -88,25 +88,28 @@ const auth: React.FunctionComponent  = () => {
 			}),
 		});
 		setControls(updateControls);
-	}
+	};
 
 	const submitHandler = (event: React.FormEvent) => {
 		event.preventDefault();
 		onAuth(controls.email.value, controls.password.value, isSignUp);
-	}
+	};
 
-	const siwtchAuthModeHandler = () =>{
+	const siwtchAuthModeHandler = () => {
 		setIsSignUp(!isSignUp);
-	}
+	};
 	
 	const fromElementsArray: FormElement [] = [];
 		
-	for(let key in controls) {
-		const controlkey = key as keyof Controls;
-		fromElementsArray.push({
-			id: controlkey,
-			config: controls[controlkey],
-		})
+	for(const key in controls) {
+		if(!!key)
+		{
+			const controlkey = key as keyof Controls;
+			fromElementsArray.push({
+				id: controlkey,
+				config: controls[controlkey],
+			});
+		}
 	}
 
 	let form: JSX.Element[] = fromElementsArray.map((formElement: FormElement) : JSX.Element => (
@@ -120,16 +123,16 @@ const auth: React.FunctionComponent  = () => {
 			touched={formElement.config.touched}
 			errorMessage={formElement.config.errorMessage}
 			changed={(event) => inputChangedHandler(event, formElement.id)}
-			/>
+		/>
 	));
 
-	if(loading){
-		form = [<Spinner key={"Spinner"}/>]
+	if(loading) {
+		form = [<Spinner key={"Spinner"}/>];
 	}
 
 	let errorMessage = null;
 
-	if(!!error){
+	if(!!error) {
 		errorMessage = (
 			<p>{error.message}</p>
 		);
@@ -137,8 +140,8 @@ const auth: React.FunctionComponent  = () => {
 
 	let authRedirect = null;
 
-	if(isAuth){
-		authRedirect = <Redirect to={authRedirectPath} />
+	if(isAuth) {
+		authRedirect = <Redirect to={authRedirectPath} />;
 	}
 
 	return (
@@ -153,11 +156,12 @@ const auth: React.FunctionComponent  = () => {
 			</form>
 			<Button 
 				clicked={siwtchAuthModeHandler}
-				btnType={ButtonType.Danger}>
-				{`SWITCH TO ${isSignUp?"SIGNIN": "SIGNUP"}`} 
+				btnType={ButtonType.Danger}
+			>
+				{`SWITCH TO ${isSignUp ? "SIGNIN" : "SIGNUP"}`} 
 			</Button>
 		</div>
 	);
-}
+};
 
 export default auth;

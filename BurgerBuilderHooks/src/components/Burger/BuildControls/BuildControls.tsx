@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
 
-import classes from './BuildControls.css';
-import BuildControl from './BuildControl/BuildControl';
-import { IngredientTypes } from '../../../Types/Types';
+import classes from "./BuildControls.css";
+import BuildControl from "./BuildControl/BuildControl";
+import { IngredientTypes } from "../../../Types/Types";
 
 export type Disabled = {
 	[key in IngredientTypes]?: boolean;
-}
+};
 
 type buildControlsProps = {
 	price: number;
@@ -16,13 +16,13 @@ type buildControlsProps = {
 	ingredientRemove: (type: IngredientTypes) => void;
 	ordered: () => void;
 	disabled: Disabled
-}
+};
 
 const controls: {label: string, type: IngredientTypes}[] = [
-	{label: 'Salad', type: 'salad'},
-	{label: 'Bacon', type: 'bacon'},
-	{label: 'Cheese', type: 'cheese'},
-	{label: 'Meat', type: 'meat'},
+	{label: "Salad", type: "salad"},
+	{label: "Bacon", type: "bacon"},
+	{label: "Cheese", type: "cheese"},
+	{label: "Meat", type: "meat"},
 ];
 
 const buildControls: React.FunctionComponent<buildControlsProps> = (props) => {
@@ -37,13 +37,14 @@ const buildControls: React.FunctionComponent<buildControlsProps> = (props) => {
 				added={() => props.ingredientAdded(ctrl.type)}
 				removed={() => props.ingredientRemove(ctrl.type)}
 				disabled={props.disabled[ctrl.type as IngredientTypes] ?? false}
-				/>
+			/>
 		))}
 		<button 
 			className={classes.OrderButton} 
 			disabled={!props.purchasable}
-			onClick={props.ordered}>
-			{props.isAuth? 'ORDER NOW':'SIGN UP TO ORDER'}
+			onClick={props.ordered}
+		>
+			{props.isAuth ? "ORDER NOW" : "SIGN UP TO ORDER"}
 		</button>
 	</div>
 	);

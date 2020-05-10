@@ -1,17 +1,17 @@
-import React from 'react';
+import React from "react";
 
-import classes from './Button.css';
+import classes from "./Button.css";
 
 export enum ButtonType {
 	Success = 0,
 	Danger = 1
-};
+}
 
 type buttonProps = {
 	disabled?: boolean;
 	btnType: ButtonType,
 	clicked?: () => void,
-}
+};
 
 const button: React.FunctionComponent<buttonProps> = (props) => {
 	let cssClass: string = "";
@@ -25,11 +25,14 @@ const button: React.FunctionComponent<buttonProps> = (props) => {
 		break;
 	}
 
-	return (<button
+	return (
+	<button
 		disabled={props.disabled}
-		className={[classes.Button, cssClass].join(' ')}
+		className={[classes.Button, cssClass].join(" ")}
 		onClick={props.clicked}
-	>{props.children}</button>);
+	>
+		{props.children}
+	</button>);
 };
 
 export default button;

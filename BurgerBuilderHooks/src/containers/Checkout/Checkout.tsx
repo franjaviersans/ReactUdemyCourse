@@ -1,11 +1,11 @@
-import React from 'react';
-import { Route, Redirect, RouteComponentProps } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import React from "react";
+import { Route, Redirect, RouteComponentProps } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-import CheckoutSummary from '../../components/Order/CheckoutSummary/CheckoutSummary';
-import ContactData from './ContactData/ContactData';
-import { StoreStateType } from '../../store/reducers/StateType';
-import { IIngredient } from '../../Types/Types';
+import CheckoutSummary from "../../components/Order/CheckoutSummary/CheckoutSummary";
+import ContactData from "./ContactData/ContactData";
+import { StoreStateType } from "../../store/reducers/StateType";
+import { IIngredient } from "../../Types/Types";
 
 const checkout: React.FunctionComponent<RouteComponentProps> = (props) => {
 
@@ -14,17 +14,17 @@ const checkout: React.FunctionComponent<RouteComponentProps> = (props) => {
 
 	const checkoutCancelledHandler = () => {
 		props.history.goBack();
-	}
+	};
 
 	const checkoutContinuedHandler = () => {
-		if(!props.history.location.pathname.includes('checkout/contact-data'))
-			props.history.replace('checkout/contact-data');	
-	}
+		if(!props.history.location.pathname.includes("checkout/contact-data"))
+			props.history.replace("checkout/contact-data");	
+	};
 
 	let summary = <Redirect to="/"/>;
 
-	if(ingredients){
-		const purchasedRedirect = purchased? <Redirect to="/" />: null;
+	if(ingredients) {
+		const purchasedRedirect = purchased ? <Redirect to="/" /> : null;
 
 		summary = 
 		(
@@ -34,11 +34,11 @@ const checkout: React.FunctionComponent<RouteComponentProps> = (props) => {
 				ingredients={ingredients}
 				checkoutCancelled={checkoutCancelledHandler}
 				checkoutContinued={checkoutContinuedHandler}
-				/>
+			/>
 			<Route 
-				path={props.match.path+'/contact-data'} 
+				path={props.match.path + "/contact-data"} 
 				component={ContactData}
-				/>
+			/>
 		</div>
 		);
 	}
@@ -48,6 +48,6 @@ const checkout: React.FunctionComponent<RouteComponentProps> = (props) => {
 			{summary}
 		</div>
 	);
-}
+};
 
 export default checkout;

@@ -1,35 +1,42 @@
-import React from 'react';
+import React from "react";
 
-import classes from './Order.css';
-import { IIngredient, IngredientTypes } from '../../Types/Types';
+import classes from "./Order.css";
+import { IIngredient, IngredientTypes } from "../../Types/Types";
 
 type orderProps = {
 	ingredients: IIngredient;
 	price: string;
-}
+};
 
 
 const order: React.FunctionComponent<orderProps> = (props) => {
 	const ingredients = [];
 
-	for (let ingredientName in props.ingredients){
-		ingredients.push({
-			name: ingredientName, 
-			amount: props.ingredients[ingredientName as IngredientTypes]
-		});
+	for (const ingredientName in props.ingredients) {
+		if(!!ingredientName)
+		{
+			ingredients.push({
+				name: ingredientName, 
+				amount: props.ingredients[ingredientName as IngredientTypes]
+			});
+		}
 	}
 
 	const ingredientOutput = ingredients.map(ig => {
-		return <span 
+		return (
+		<span 
 			style={{
-				textTransform: 'capitalize', 
-				display: 'inline-block',
-				margin: '0 8px',
-				border: '1px solid #ccc',
-				padding: '5px'
+				textTransform: "capitalize", 
+				display: "inline-block",
+				margin: "0 8px",
+				border: "1px solid #ccc",
+				padding: "5px"
 			}}
-			key={ig.name}>{`${ig.name} (${ig.amount})`}</span>;
-	})
+			key={ig.name}
+		>
+			{`${ig.name} (${ig.amount})`}
+		</span>);
+	});
 
 	return (
 		<div className={classes.Order}>

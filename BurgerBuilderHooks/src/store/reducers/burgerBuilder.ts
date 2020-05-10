@@ -1,6 +1,6 @@
-import * as actionTypes from '../actions/actionTypes';
-import { updateObject } from '../../shared/utility';
-import { IIngredient } from '../../Types/Types';
+import * as actionTypes from "../actions/actionTypes";
+import { updateObject } from "../../shared/utility";
+import { IIngredient } from "../../Types/Types";
 
 
 export type BurgerStoreState = {
@@ -8,7 +8,7 @@ export type BurgerStoreState = {
 	totalPrice: number,
 	error: boolean,
 	building: boolean
-}
+};
 
 const initialState: BurgerStoreState = {
 	ingredients: {
@@ -32,29 +32,29 @@ const INGREDIENT_PRICES: IIngredient = {
 
 //actions for reducer
 const addIngredient = (state: BurgerStoreState, action: actionTypes.AddIngredientAction) => {
-	const updateIngreient = { [action.ingredientName]: state.ingredients[action.ingredientName] + 1 }
-	const updatedIngredients = updateObject(state.ingredients, updateIngreient)
+	const updateIngreient = { [action.ingredientName]: state.ingredients[action.ingredientName] + 1 };
+	const updatedIngredients = updateObject(state.ingredients, updateIngreient);
 	const updateState = {
 		ingredients: updatedIngredients,
 		totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName],
 		building: true,
-	}
+	};
 	
 	return updateObject(state, updateState);
-}
+};
 
 
 const removeIngredient = (state: BurgerStoreState, action: actionTypes.BurgerRemoveIngredientAction) => {
-	const updateIngreient = { [action.ingredientName]: state.ingredients[action.ingredientName] - 1 }
-	const updatedIngredients = updateObject(state.ingredients, updateIngreient)
+	const updateIngreient = { [action.ingredientName]: state.ingredients[action.ingredientName] - 1 };
+	const updatedIngredients = updateObject(state.ingredients, updateIngreient);
 	const updateState = {
 		ingredients: updatedIngredients,
 		totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName],
 		building: true,
-	}
+	};
 	
 	return updateObject(state, updateState);
-}
+};
 
 const setIngredients = (state: BurgerStoreState, action: actionTypes.BurgerSetIngredientAction) => {
 	return updateObject(state, {
@@ -68,15 +68,15 @@ const setIngredients = (state: BurgerStoreState, action: actionTypes.BurgerSetIn
 				error: false,
 				building: false,
 			});
-}
+};
 
-const fetchIngredientFailed = (state: BurgerStoreState, action: actionTypes.BurgerFetchIngredientFaileAction) =>{
+const fetchIngredientFailed = (state: BurgerStoreState, action: actionTypes.BurgerFetchIngredientFaileAction) => {
 	return updateObject(state, { error: true });
-}
+};
 //end actions for reducer
 
 
-const reducer = (state = initialState, action: actionTypes.BurgerActionTypes) =>{
+const reducer = (state = initialState, action: actionTypes.BurgerActionTypes) => {
 	switch(action.type){
 		case(actionTypes.ADD_INGREDIENT): return addIngredient(state, action);
 		case(actionTypes.REMOVE_INGREDIENT): return removeIngredient(state, action);

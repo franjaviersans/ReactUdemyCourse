@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
-import classes from './NavigationItems.css';
-import NavigationItem from './NavigationItem/NavigationItem';
+import classes from "./NavigationItems.css";
+import NavigationItem from "./NavigationItem/NavigationItem";
 
 type navigationItemsProps = {
 	isAuth: boolean;
-}
+};
 
 const navigationItems: React.FunctionComponent<navigationItemsProps> = (props) => (
 	<ul className={classes.NavigationItems}>

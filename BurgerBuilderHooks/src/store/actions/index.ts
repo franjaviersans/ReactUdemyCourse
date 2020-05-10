@@ -4,7 +4,7 @@ export {
 	initIngredients,
 	setIngredients,
 	fetchIngredientFailed,
-} from './burgerBuilder';
+} from "./burgerBuilder";
 
 
 export {
@@ -17,7 +17,7 @@ export {
 	fetchOrdersFail,
 	fetchOrdersSuccess,
 	fetchOrdersStart
-} from './order';
+} from "./order";
 
 
 export {
@@ -30,4 +30,4 @@ export {
 	authSuccess,
 	authFail,
 	checkAuthTimeout,
-} from './auth';
+} from "./auth";

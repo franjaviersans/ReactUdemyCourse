@@ -1,18 +1,18 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { RouteComponentProps } from 'react-router-dom';
+import React, { useState, useEffect, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RouteComponentProps } from "react-router-dom";
 
-import Aux from '../../hoc/AuxHOC/AuxHOC';
-import Burger from '../../components/Burger/Burger';
-import BuildControls, { Disabled } from '../../components/Burger/BuildControls/BuildControls';
-import Modal from '../../components/UI/Modal/Modal';
-import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
-import Spinner from '../../components/UI/Spinner/Spinner';
-import withErrorHandler from  '../../hoc/withErrorHandler/withErrorHandler';
-import * as actions from '../../store/actions/index';
-import axios from '../../axios-orders';
-import { IngredientTypes, IIngredient } from '../../Types/Types';
-import { StoreStateType } from '../../store/reducers/StateType';
+import Aux from "../../hoc/AuxHOC/AuxHOC";
+import Burger from "../../components/Burger/Burger";
+import BuildControls, { Disabled } from "../../components/Burger/BuildControls/BuildControls";
+import Modal from "../../components/UI/Modal/Modal";
+import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
+import Spinner from "../../components/UI/Spinner/Spinner";
+import withErrorHandler from  "../../hoc/withErrorHandler/withErrorHandler";
+import * as actions from "../../store/actions/index";
+import axios from "../../axios-orders";
+import { IngredientTypes, IIngredient } from "../../Types/Types";
+import { StoreStateType } from "../../store/reducers/StateType";
 
 
 const burgerBuilder: React.FunctionComponent<RouteComponentProps> = props => {
@@ -43,41 +43,43 @@ const burgerBuilder: React.FunctionComponent<RouteComponentProps> = props => {
 						const igKey = ig as IngredientTypes;
 						return ingredients[igKey];
 					})
-					.reduce((sum, el) => sum + el,0);;
+					.reduce((sum, el) => sum + el, 0);
 
 		return sum > 0;
-	}
+	};
 
 	const purchasehandler = () => {
-		if(isAuth){
+		if(isAuth) {
 			setPurchasing(true);
-		}else{
-			onSetAuthRedirectPath('/checkout');
-			props.history.push('/auth');	
+		}else {
+			onSetAuthRedirectPath("/checkout");
+			props.history.push("/auth");	
 		}
-	}
+	};
 
 	const purchaseCancelHandler = () => {
 		setPurchasing(false);
-	}
+	};
 
 	const purchaseContinuehandler = () => {
 		onInitPurchase();
-		props.history.push('/checkout');
-	}
+		props.history.push("/checkout");
+	};
 
 	const disabledInfo: Disabled = {};
 
-	for(let key in ingredients){
-		const igKey = key as IngredientTypes;
-		disabledInfo[igKey] = ingredients[igKey] <= 0;
+	for(const key in ingredients) {
+		if(!!key) {
+			const igKey = key as IngredientTypes;
+			disabledInfo[igKey] = ingredients[igKey] <= 0;
+		}
 	}
 
 	let orderSummary = null;
 	let burger = error ? <p>{"Ingredients can't be loaded!"}</p> : <Spinner />;
 
 
-	if (ingredients){
+	if (ingredients) {
 		burger = (
 			<Aux>
 				<Burger ingredients={ingredients}/>
@@ -89,9 +91,8 @@ const burgerBuilder: React.FunctionComponent<RouteComponentProps> = props => {
 					purchasable={updatePurchaseState(ingredients)}
 					ordered={purchasehandler}
 					isAuth={isAuth}
-					/>
-			</Aux>
-				);
+				/>
+			</Aux>);
 
 		orderSummary = (
 			<OrderSummary 
@@ -99,7 +100,7 @@ const burgerBuilder: React.FunctionComponent<RouteComponentProps> = props => {
 				purchaseContinued={purchaseContinuehandler}
 				ingredients={ingredients}
 				price={totalPrice}
-				/>
+			/>
 			);
 	}
 
@@ -111,6 +112,6 @@ const burgerBuilder: React.FunctionComponent<RouteComponentProps> = props => {
 			{burger}
 		</Aux>
 	);
-}
+};
 
 export default withErrorHandler(burgerBuilder, axios);
