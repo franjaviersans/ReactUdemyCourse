@@ -1,5 +1,11 @@
 import { IIngredient, IOrder, IErrorMessage, IngredientTypes } from "../../Types/Types";
 
+export const INITIAL_StTATE = "";
+
+export interface InitialState {
+  type: typeof INITIAL_StTATE;
+}
+
 export const ADD_INGREDIENT = "ADD_INGREDIENT";
 export const REMOVE_INGREDIENT = "REMOVE_INGREDIENT";
 export const SET_INGREDIENTS = "SET_INGREDIENTS";
@@ -34,7 +40,8 @@ export type BurgerActionTypes =
   | BurgerRemoveIngredientAction
   | BurgerSetIngredientAction
   | BurgerFetchIngredientFaileAction
-  | BurgerInitIngredientAction;
+  | BurgerInitIngredientAction
+  | InitialState;
 
 export const PURCHASE_BURGER = "PURCHASE_BURGER";
 export const PURCHASE_BURGER_SUCCESS = "PURCHASE_BURGER_SUCCESS";
@@ -99,7 +106,8 @@ export type OrderActionTypes =
   | OrderFetchAction
   | OrderFetchStartAction
   | OrderFetchSuccesAction
-  | OrderFetchFailAction;
+  | OrderFetchFailAction
+  | InitialState;
 
 export const AUTH_CHECK_STATE = "AUTH_CHECK_STATE";
 export const AUTH_USER = "AUTH_USER";
@@ -165,4 +173,5 @@ export type AuthActionTypes =
   | AuthCheckTimeOutAction
   | AuthCheckStateAction
   | AuthAuthRedirectPathAction
-  | AuthUserAction;
+  | AuthUserAction
+  | InitialState;

@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "jsx": "react",
+    "typeRoots": null,
+    "types": ["jest", "jest-extended"],
+    "baseUrl": "./",
+    "paths": {
+      "base": ["./src"],
+      "base/*": ["./src/*"]
+    },
+    "module": "commonjs",
+    "target": "es5"
+  }
+}
